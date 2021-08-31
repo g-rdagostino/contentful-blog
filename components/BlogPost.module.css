@@ -1,0 +1,20 @@
+.blog-post {
+}
+
+.blog-post__media {
+}
+
+.blog-post__content {
+}
+
+.blog-post__category {
+    color: #0070f3;
+}
+
+.blog-post__title {
+  margin: 0.125em 0;
+}
+
+.blog-post__meta > span {
+    margin-left: 1rem;
+}
