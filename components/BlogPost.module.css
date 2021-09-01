@@ -1,0 +1,33 @@
+.blog-post {
+  background-color: white;
+}
+
+.blog-post__media > * {
+  vertical-align: middle;
+}
+
+.blog-post__content {
+  padding: 1.25rem;
+}
+
+.blog-post__category {
+  color: #0070f3;
+}
+
+.blog-post__title {
+  line-height: 1.24;
+  margin: 0.125em 0;
+}
+
+.blog-post__summary {
+  line-height: 1.32;
+  margin: 0.125em 0;
+}
+
+.blog-post__meta {
+  margin: 0.25em 0 0;
+}
+
+.blog-post__meta > span {
+  margin-left: 1rem;
+}

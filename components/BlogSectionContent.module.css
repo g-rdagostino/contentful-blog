@@ -1,0 +1,5 @@
+.blog-section__content {
+  display: grid;
+  column-gap: 3rem;
+  row-gap: 2rem;
+}
