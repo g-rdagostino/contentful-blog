@@ -1,15 +1,15 @@
 import Image from 'next/image';
 
-import styles from './BlogPost.module.css';
+import classes from './BlogPost.module.css';
 
-type BlogPostProps = {
+interface BlogPostInterface {
   title: string;
   category: string;
   summary: string;
   featuredImageUrl: string;
   datePublished: string;
   author: string;
-};
+}
 
 const BlogPost = ({
   title,
@@ -18,19 +18,19 @@ const BlogPost = ({
   featuredImageUrl,
   datePublished,
   author,
-}: BlogPostProps) => {
+}: BlogPostInterface) => {
   return (
-    <div className={styles['blog-post']}>
-      <div className={styles['blog-post__media']}>
+    <div className={classes['blog-post']}>
+      <div className={classes['blog-post__media']}>
         <Image src={featuredImageUrl} alt="" width="748" height="500" />
       </div>
-      <div className={styles['blog-post__content']}>
-        <span className={styles['blog-post__category']}>{category}</span>
-        <h2 className={styles['blog-post__title']}>{title}</h2>
-        <p className={styles['blog-post__summary']}>{summary}</p>
-        <div className={styles['blog-post__meta']}>
-          <time className={styles['blog-post__date']}>{datePublished}</time>
-          <span className={styles['blog-post__author']}>{author}</span>
+      <div className={classes['blog-post__content']}>
+        <span className={classes['blog-post__category']}>{category}</span>
+        <h3 className={classes['blog-post__title']}>{title}</h3>
+        <p className={classes['blog-post__summary']}>{summary}</p>
+        <div className={classes['blog-post__meta']}>
+          <time className={classes['blog-post__date']}>{datePublished}</time>
+          <span className={classes['blog-post__author']}>{author}</span>
         </div>
       </div>
     </div>
