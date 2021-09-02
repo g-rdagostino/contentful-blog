@@ -1,10 +1,11 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import { createClient } from 'contentful';
+
+import fetchEntries from '../utils/contentful-posts';
 
 import BlogSection from '../components/BlogSection';
+import { IBlogPost } from '../components/BlogPost';
 import classes from '../styles/Home.module.css';
-import BlogAd from '../components/BlogAd';
 
 const FEATURED_DUMMY_DATA = [
   {
@@ -175,7 +176,7 @@ const BROWSE_ALL_DUMMY_DATA = [
   },
 ];
 
-const Home: NextPage = () => {
+const Home: NextPage = ({ posts }: IBlogPost[]) => {
   return (
     <div className={classes.container}>
       <Head>
@@ -199,17 +200,43 @@ const Home: NextPage = () => {
           Get started by editing <code className={classes.code}>pages/index.js</code>
         </p>
 
-        <BlogSection posts={FEATURED_DUMMY_DATA} variation="featured" />
-        <BlogSection title="Most Popular" posts={MOST_POPULAR_DUMMY_DATA} variation="grid" />
-        <BlogSection
-          title="Browse All"
-          posts={BROWSE_ALL_DUMMY_DATA}
-          variation="grid"
-          dropdown={true}
-        />
+        <BlogSection posts={posts} variation="featured" />
+        <BlogSection title="Most Popular" posts={posts} variation="grid" />
+        <BlogSection title="Browse All" posts={posts} variation="grid" dropdown={true} />
       </main>
     </div>
   );
+};
+
+export async function getStaticProps() {
+  const response = await fetchEntries();
+  const posts = await transformContentfulPosts(response);
+
+  return {
+    props: {
+      posts,
+    },
+  };
+}
+
+const transformContentfulPosts = (items: object[] | undefined): IBlogPost[] | void => {
+  if (!items) {
+    return;
+  }
+
+  const posts = items.map((item: object): IBlogPost => {
+    return {
+      id: item.sys.id,
+      title: item.fields.title,
+      category: item.fields.category,
+      summary: item.fields.summary,
+      featuredImageUrl: `https:${item.fields.featuredImage?.fields.file.url}` || '',
+      datePublished: item.sys.createdAt,
+      author: item.fields.author,
+    };
+  });
+
+  return posts;
 };
 
 export default Home;
