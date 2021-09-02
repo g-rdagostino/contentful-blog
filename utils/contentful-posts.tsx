@@ -8,10 +8,10 @@ const client = createClient({
   accessToken: accessToken || '',
 });
 
-async function fetchEntries() {
+const fetchEntries = async (): Promise<object[]> => {
   const entries = await client.getEntries({ content_type: 'blogPost' });
-  if (entries.items) return entries.items;
-  console.error(`Error getting Entries for ${contentType.name}.`);
+  if (!entries.items) console.error(`Error getting Entries for ${contentType.name}.`);
+  return entries.items || [];
 }
 
 export default fetchEntries;

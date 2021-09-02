@@ -3,25 +3,20 @@ import classes from './BlogSectionContent.module.css';
 
 interface BlogSectionContentInterface {
   posts: object[];
-};
-
-interface PostInterface {
-  id: string;
-  title: string;
-  category: string;
-  summary: string;
-  datePublished: string;
-  featuredImageUrl: string;
-  author: string;
+  amount: number;
 }
 
-const BlogSectionContent = ({ posts }: BlogSectionContentInterface) => {
+const BlogSectionContent = ({ posts, amount }: BlogSectionContentInterface) => {
   return (
     <div className={classes['blog-section__content']}>
-      {posts.map((post: any) => {
+      {posts.map((post: any, index) => {
+        if (index >= amount) {
+          return;
+        }
         return (
           <BlogPost
             key={post.id}
+            id={post.id}
             title={post.title}
             category={post.category}
             summary={post.summary}

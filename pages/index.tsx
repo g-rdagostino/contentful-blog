@@ -200,9 +200,9 @@ const Home: NextPage = ({ posts }: IBlogPost[]) => {
           Get started by editing <code className={classes.code}>pages/index.js</code>
         </p>
 
-        <BlogSection posts={posts} variation="featured" />
-        <BlogSection title="Most Popular" posts={posts} variation="grid" />
-        <BlogSection title="Browse All" posts={posts} variation="grid" dropdown={true} />
+        <BlogSection posts={posts} amount={4} variation="featured" />
+        <BlogSection title="Most Popular" posts={posts} amount={6} variation="grid" />
+        <BlogSection title="Browse All" posts={posts} amount={6} variation="grid" dropdown={true} />
       </main>
     </div>
   );
@@ -219,12 +219,13 @@ export async function getStaticProps() {
   };
 }
 
-const transformContentfulPosts = (items: object[] | undefined): IBlogPost[] | void => {
-  if (!items) {
-    return;
-  }
-
-  const posts = items.map((item: object): IBlogPost => {
+/**
+ * There are two ways we might be able to solve the “item: any” issue:
+ * -1- Use an Interface to identify the fetched content.
+ * -2- Ignore the content received.
+ */
+const transformContentfulPosts = (items: object[] = []): IBlogPost[] => {
+  const posts = items.map((item: any): IBlogPost => {
     return {
       id: item.sys.id,
       title: item.fields.title,
