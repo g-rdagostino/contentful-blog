@@ -7,7 +7,7 @@ import BlogSection from '../components/BlogSection';
 import { IBlogPost } from '../components/BlogPost';
 import classes from '../styles/Home.module.css';
 
-const Home: NextPage = ({ posts }: IBlogPost[]) => {
+const Home: NextPage = ({ posts }: any) => {
   return (
     <div className={classes.container}>
       <Head>
