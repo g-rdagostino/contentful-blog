@@ -19,15 +19,12 @@
   margin: 0.125em 0;
 }
 
-.blog-post__summary {
-  line-height: 1.32;
-  margin: 0.125em 0;
-}
-
 .blog-post__meta {
   margin: 0.25em 0 0;
 }
 
-.blog-post__meta > span {
-  margin-left: 1rem;
+.blog-post__meta > time + span::before {
+  content: "|";
+  color: #c3c3ce;
+  padding: 0 0.5rem;
 }

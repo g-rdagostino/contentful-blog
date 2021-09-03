@@ -7,176 +7,7 @@ import BlogSection from '../components/BlogSection';
 import { IBlogPost } from '../components/BlogPost';
 import classes from '../styles/Home.module.css';
 
-const FEATURED_DUMMY_DATA = [
-  {
-    id: '1',
-    title: 'My first post',
-    category: 'Category',
-    summary: 'This is the first post published in this blog.',
-    datePublished: '2021-08-31',
-    featuredImageUrl:
-      'https://images.unsplash.com/photo-1630359486912-4b085e38f1e7?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=748&q=80',
-    author: 'John Doe',
-  },
-  {
-    id: '2',
-    title: 'My second post',
-    category: 'Category',
-    summary: 'This is the second post published in this blog.',
-    datePublished: '2021-08-31',
-    featuredImageUrl:
-      'https://images.unsplash.com/photo-1630359486912-4b085e38f1e7?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=748&q=80',
-    author: 'John Doe',
-  },
-  {
-    id: '3',
-    title: 'My third post',
-    category: 'Category',
-    summary: 'This is the third post published in this blog.',
-    datePublished: '2021-08-31',
-    featuredImageUrl:
-      'https://images.unsplash.com/photo-1630359486912-4b085e38f1e7?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=748&q=80',
-    author: 'John Doe',
-  },
-  {
-    id: '4',
-    title: 'My forth post',
-    category: 'Category',
-    summary: 'This is the forth post published in this blog.',
-    datePublished: '2021-08-31',
-    featuredImageUrl:
-      'https://images.unsplash.com/photo-1630359486912-4b085e38f1e7?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=748&q=80',
-    author: 'John Doe',
-  },
-];
-
-const MOST_POPULAR_DUMMY_DATA = [
-  {
-    id: '1',
-    title: 'My first post',
-    category: 'Category',
-    summary: 'This is the first post published in this blog.',
-    datePublished: '2021-08-31',
-    featuredImageUrl:
-      'https://images.unsplash.com/photo-1630359486912-4b085e38f1e7?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=748&q=80',
-    author: 'John Doe',
-  },
-  {
-    id: '2',
-    title: 'My second post',
-    category: 'Category',
-    summary: 'This is the second post published in this blog.',
-    datePublished: '2021-08-31',
-    featuredImageUrl:
-      'https://images.unsplash.com/photo-1630359486912-4b085e38f1e7?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=748&q=80',
-    author: 'John Doe',
-  },
-  {
-    id: '3',
-    title: 'My third post',
-    category: 'Category',
-    summary: 'This is the third post published in this blog.',
-    datePublished: '2021-08-31',
-    featuredImageUrl:
-      'https://images.unsplash.com/photo-1630359486912-4b085e38f1e7?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=748&q=80',
-    author: 'John Doe',
-  },
-  {
-    id: '4',
-    title: 'My forth post',
-    category: 'Category',
-    summary: 'This is the forth post published in this blog.',
-    datePublished: '2021-08-31',
-    featuredImageUrl:
-      'https://images.unsplash.com/photo-1630359486912-4b085e38f1e7?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=748&q=80',
-    author: 'John Doe',
-  },
-  {
-    id: '5',
-    title: 'My fifth post',
-    category: 'Category',
-    summary: 'This is the fifth post published in this blog.',
-    datePublished: '2021-08-31',
-    featuredImageUrl:
-      'https://images.unsplash.com/photo-1630359486912-4b085e38f1e7?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=748&q=80',
-    author: 'John Doe',
-  },
-  {
-    id: '6',
-    title: 'My sixth post',
-    category: 'Category',
-    summary: 'This is the sixth post published in this blog.',
-    datePublished: '2021-08-31',
-    featuredImageUrl:
-      'https://images.unsplash.com/photo-1630359486912-4b085e38f1e7?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=748&q=80',
-    author: 'John Doe',
-  },
-];
-
-const BROWSE_ALL_DUMMY_DATA = [
-  {
-    id: '1',
-    title: 'My first post',
-    category: 'Category',
-    summary: 'This is the first post published in this blog.',
-    datePublished: '2021-08-31',
-    featuredImageUrl:
-      'https://images.unsplash.com/photo-1630359486912-4b085e38f1e7?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=748&q=80',
-    author: 'John Doe',
-  },
-  {
-    id: '2',
-    title: 'My second post',
-    category: 'Category',
-    summary: 'This is the second post published in this blog.',
-    datePublished: '2021-08-31',
-    featuredImageUrl:
-      'https://images.unsplash.com/photo-1630359486912-4b085e38f1e7?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=748&q=80',
-    author: 'John Doe',
-  },
-  {
-    id: '3',
-    title: 'My third post',
-    category: 'Category',
-    summary: 'This is the third post published in this blog.',
-    datePublished: '2021-08-31',
-    featuredImageUrl:
-      'https://images.unsplash.com/photo-1630359486912-4b085e38f1e7?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=748&q=80',
-    author: 'John Doe',
-  },
-  {
-    id: '4',
-    title: 'My forth post',
-    category: 'Category',
-    summary: 'This is the forth post published in this blog.',
-    datePublished: '2021-08-31',
-    featuredImageUrl:
-      'https://images.unsplash.com/photo-1630359486912-4b085e38f1e7?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=748&q=80',
-    author: 'John Doe',
-  },
-  {
-    id: '5',
-    title: 'My fifth post',
-    category: 'Category',
-    summary: 'This is the fifth post published in this blog.',
-    datePublished: '2021-08-31',
-    featuredImageUrl:
-      'https://images.unsplash.com/photo-1630359486912-4b085e38f1e7?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=748&q=80',
-    author: 'John Doe',
-  },
-  {
-    id: '6',
-    title: 'My sixth post',
-    category: 'Category',
-    summary: 'This is the sixth post published in this blog.',
-    datePublished: '2021-08-31',
-    featuredImageUrl:
-      'https://images.unsplash.com/photo-1630359486912-4b085e38f1e7?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=748&q=80',
-    author: 'John Doe',
-  },
-];
-
-const Home: NextPage = ({ posts }: IBlogPost[]) => {
+const Home: NextPage = ({ posts }: any) => {
   return (
     <div className={classes.container}>
       <Head>
@@ -209,8 +40,7 @@ const Home: NextPage = ({ posts }: IBlogPost[]) => {
 };
 
 export async function getStaticProps() {
-  const response = await fetchEntries();
-  const posts = await transformContentfulPosts(response);
+  const posts = await fetchEntries();
 
   return {
     props: {
@@ -218,26 +48,5 @@ export async function getStaticProps() {
     },
   };
 }
-
-/**
- * There are two ways we might be able to solve the “item: any” issue:
- * -1- Use an Interface to identify the fetched content.
- * -2- Ignore the content received.
- */
-const transformContentfulPosts = (items: object[] = []): IBlogPost[] => {
-  const posts = items.map((item: any): IBlogPost => {
-    return {
-      id: item.sys.id,
-      title: item.fields.title,
-      category: item.fields.category,
-      summary: item.fields.summary,
-      featuredImageUrl: `https:${item.fields.featuredImage?.fields.file.url}` || '',
-      datePublished: item.sys.createdAt,
-      author: item.fields.author,
-    };
-  });
-
-  return posts;
-};
 
 export default Home;

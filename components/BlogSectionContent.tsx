@@ -19,7 +19,6 @@ const BlogSectionContent = ({ posts, amount }: BlogSectionContentInterface) => {
             id={post.id}
             title={post.title}
             category={post.category}
-            summary={post.summary}
             datePublished={post.datePublished}
             featuredImageUrl={post.featuredImageUrl}
             author={post.author}
