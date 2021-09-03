@@ -2,7 +2,8 @@ import Image from 'next/image';
 
 import classes from './BlogPost.module.css';
 
-interface BlogPostInterface {
+export interface IBlogPost {
+  id: string;
   title: string;
   category: string;
   summary: string;
@@ -18,7 +19,7 @@ const BlogPost = ({
   featuredImageUrl,
   datePublished,
   author,
-}: BlogPostInterface) => {
+}: IBlogPost) => {
   return (
     <div className={classes['blog-post']}>
       <div className={classes['blog-post__media']}>
