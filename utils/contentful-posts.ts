@@ -14,7 +14,7 @@ const client = createClient({
 const fetchEntries = async (): Promise<object[]> => {
   const entries = await client.getEntries({ content_type: 'blogPost' });
   if (!entries.items) console.error(`Error getting entries.`);
-  return transformContentfulPosts(entries.items) || [];
+  return transformContentfulPosts(entries.items);
 };
 
 /**
