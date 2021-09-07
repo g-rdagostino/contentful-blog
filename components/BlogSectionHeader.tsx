@@ -1,23 +1,20 @@
+import BlogSectionHeaderDropdown from './BlogSectionHeaderDropdown';
 import classes from './BlogSectionHeader.module.css';
 
-interface BlogSectionHeaderInterface {
+interface IBlogSectionHeader {
   title?: string;
   dropdown?: boolean;
-};
+  onCategorySelect(category: string): void;
+}
 
-const BlogSectionHeader = ({ title, dropdown }: BlogSectionHeaderInterface) => {
+const BlogSectionHeader = ({ title, dropdown, onCategorySelect }: IBlogSectionHeader) => {
+  const handleCategorySelect = (category: string) => onCategorySelect(category);
+
   return (
     <header className={classes['blog-section__header']}>
       {title && <h2 className={classes['blog-section__title']}>{title}</h2>}
 
-      {dropdown && (
-        <select>
-          <option value="category-1">Category 1</option>
-          <option value="category-2">Category 2</option>
-          <option value="category-3">Category 3</option>
-          <option value="category-4">Category 4</option>
-        </select>
-      )}
+      {dropdown && <BlogSectionHeaderDropdown onCategorySelect={handleCategorySelect} />}
     </header>
   );
 };

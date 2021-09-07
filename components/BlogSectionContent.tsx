@@ -1,12 +1,13 @@
-import BlogPost from './BlogPost';
+import BlogPost, { IBlogPost } from './BlogPost';
 import classes from './BlogSectionContent.module.css';
 
-interface BlogSectionContentInterface {
-  posts: object[];
+interface IBlogSectionContent {
+  posts: IBlogPost[];
   amount: number;
+  category?: string | null;
 }
 
-const BlogSectionContent = ({ posts, amount }: BlogSectionContentInterface) => {
+const BlogSectionContent = ({ posts, amount }: IBlogSectionContent) => {
   return (
     <div className={classes['blog-section__content']}>
       {posts.map((post: any, index) => {

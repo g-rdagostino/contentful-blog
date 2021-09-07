@@ -1,6 +1,6 @@
 import classes from './BlogAd.module.css';
 
-interface BlogAdInterface {
+interface iBlogAd {
   title: string;
   description: string;
   linkText: string;
@@ -8,7 +8,7 @@ interface BlogAdInterface {
   backgroundImageUrl: string;
 }
 
-const BlogAd = ({ title, description, linkText, linkUrl, backgroundImageUrl }: BlogAdInterface) => {
+const BlogAd = ({ title, description, linkText, linkUrl, backgroundImageUrl }: iBlogAd) => {
   return (
     <div className={classes['blog-ad']} style={{ backgroundImage: `url(${backgroundImageUrl})` }}>
       <div className={classes['blog-ad__content']}>
