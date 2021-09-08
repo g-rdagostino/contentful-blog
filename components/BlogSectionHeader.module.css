@@ -1,9 +1,9 @@
 .blog-section__header {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .blog-section__header select {
-	padding: 0.5rem;
+  padding: 0.5rem;
 }

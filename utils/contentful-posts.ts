@@ -27,6 +27,7 @@ const transformContentfulPosts = (items: object[] = []): IBlogPost[] => {
     return {
       id: item.sys.id,
       title: item.fields.title,
+      slug: item.fields.slug,
       category: item.fields.category,
       featuredImageUrl: `https:${item.fields.featuredImage?.fields.file.url}` || '',
       datePublished: formatDate(item.sys.createdAt),
