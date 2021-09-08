@@ -1,4 +1,5 @@
 .blog-post {
+  line-height: 1.24;
   background-color: white;
 }
 
@@ -7,20 +8,24 @@
 }
 
 .blog-post__content {
-  padding: 1.25rem;
+  padding: 1.25rem 1.25rem 1.5rem;
+}
+
+.blog-post__content > * {
+  display: block;
+  margin: 0.5rem 0;
+}
+
+.blog-post__content > *:first-child {
+  margin-top: 0;
+}
+
+.blog-post__content > *:last-child {
+  margin-bottom: 0;
 }
 
 .blog-post__category {
   color: #0070f3;
-}
-
-.blog-post__title {
-  line-height: 1.24;
-  margin: 0.125em 0;
-}
-
-.blog-post__meta {
-  margin: 0.25em 0 0;
 }
 
 .blog-post__meta > time + span::before {
