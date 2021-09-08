@@ -19,6 +19,7 @@ const BlogSectionContent = ({ posts, amount }: IBlogSectionContent) => {
             key={post.id}
             id={post.id}
             title={post.title}
+            slug={post.slug}
             category={post.category}
             datePublished={post.datePublished}
             featuredImageUrl={post.featuredImageUrl}
