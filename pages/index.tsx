@@ -4,7 +4,6 @@ import Head from 'next/head';
 import fetchEntries from '../utils/contentful-posts';
 
 import BlogSection from '../components/BlogSection';
-import { IBlogPost } from '../components/BlogPost';
 import classes from '../styles/Home.module.css';
 
 const Home: NextPage = ({ posts }: any) => {

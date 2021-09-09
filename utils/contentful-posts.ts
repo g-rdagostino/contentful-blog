@@ -1,7 +1,7 @@
 import { createClient } from 'contentful';
 
 import { IBlogPost } from '../components/BlogPost';
-import { formatDate } from './helpers';
+import { formatBody, formatDate } from './helpers';
 
 const spaceId = process.env.CONTENTFUL_SPACE_ID;
 const accessToken = process.env.CONTENTFUL_ACCESS_KEY;
@@ -26,12 +26,13 @@ const transformContentfulPosts = (items: object[] = []): IBlogPost[] => {
   const posts = items.map((item: any): IBlogPost => {
     return {
       id: item.sys.id,
-      title: item.fields.title,
-      slug: item.fields.slug,
-      category: item.fields.category,
-      featuredImageUrl: `https:${item.fields.featuredImage?.fields.file.url}` || '',
-      datePublished: formatDate(item.sys.createdAt),
       author: item.fields.author,
+      body: formatBody(item.fields.body) || '',
+      category: item.fields.category,
+      datePublished: formatDate(item.sys.createdAt),
+      featuredImageUrl: `https:${item.fields.featuredImage?.fields.file.url}` || '',
+      slug: item.fields.slug,
+      title: item.fields.title,
     };
   });
 
