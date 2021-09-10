@@ -1,16 +1,33 @@
+import { useEffect, useState } from 'react';
 import BlogPost, { IBlogPost } from './BlogPost';
 import classes from './BlogSectionContent.module.css';
 
 interface IBlogSectionContent {
   posts: IBlogPost[];
   amount: number;
-  category?: string | null;
+  category: string | null;
+  loadOnDemand: boolean;
 }
 
-const BlogSectionContent = ({ posts, amount }: IBlogSectionContent) => {
+const BlogSectionContent = ({ posts, amount, loadOnDemand }: IBlogSectionContent) => {
+  const [displayedPosts, setDisplayedPosts] = useState(3);
+  const [postList, setPostList] = useState<IBlogPost[]>(
+    loadOnDemand ? posts.slice(0, displayedPosts) : posts
+  );
+
+  useEffect(() => {
+    if (loadOnDemand) {
+      setPostList(posts.slice(0, displayedPosts));
+    }
+  }, [displayedPosts]);
+
+  const handleLoadMore = () => {
+    setDisplayedPosts((prevState) => prevState + 3);
+  };
+
   return (
     <div className={classes['blog-section__content']}>
-      {posts.map((post: any, index) => {
+      {postList.map((post: any, index) => {
         if (index >= amount) {
           return;
         }
@@ -28,6 +45,16 @@ const BlogSectionContent = ({ posts, amount }: IBlogSectionContent) => {
           />
         );
       })}
+
+      {loadOnDemand && displayedPosts < posts.length && (
+        <button
+          className={classes['blog-section__load-more-button']}
+          type="button"
+          onClick={handleLoadMore}
+        >
+          Load more
+        </button>
+      )}
     </div>
   );
 };

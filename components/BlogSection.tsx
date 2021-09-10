@@ -11,11 +11,19 @@ interface IBlogSection {
   posts: IBlogPost[];
   amount: number;
   variation: string;
+  loadOnDemand?: boolean;
 }
 
-const BlogSection = ({ title, dropdown, posts, amount, variation }: IBlogSection) => {
+const BlogSection = ({
+  title,
+  dropdown,
+  posts,
+  amount,
+  variation,
+  loadOnDemand = false,
+}: IBlogSection) => {
   const [postList, setPostList] = useState<IBlogPost[]>(posts);
-  const [category, setCategory] = useState('');
+  const [category, setCategory] = useState<string | null>(null);
 
   useEffect(() => {
     if (category && category !== 'all') {
@@ -41,7 +49,12 @@ const BlogSection = ({ title, dropdown, posts, amount, variation }: IBlogSection
         dropdown={dropdown}
         onCategorySelect={handleCategorySelect}
       />
-      <BlogSectionContent posts={postList} amount={amount} category={category} />
+      <BlogSectionContent
+        posts={postList}
+        amount={amount}
+        category={category}
+        loadOnDemand={loadOnDemand}
+      />
     </div>
   );
 };
