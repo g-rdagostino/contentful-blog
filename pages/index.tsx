@@ -38,7 +38,7 @@ const Home: NextPage = ({ posts }: any) => {
           amount={100}
           variation="grid"
           dropdown={true}
-          loadMore={true}
+          loadOnDemand={true}
         />
       </main>
     </div>
