@@ -31,19 +31,14 @@ const Home: NextPage = ({ posts }: any) => {
         </p>
 
         <BlogSection posts={posts} amount={4} variation="featured" />
-        <BlogSection
-          title="Most Popular"
-          posts={posts}
-          amount={6}
-          variation="grid"
-          loadOnDemand={true}
-        />
+        <BlogSection title="Most Popular" posts={posts} amount={6} variation="grid" />
         <BlogSection
           title="Browse All"
           posts={posts}
+          amount={100}
           variation="grid"
           dropdown={true}
-          loadOnDemand={true}
+          loadMore={true}
         />
       </main>
     </div>

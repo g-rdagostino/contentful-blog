@@ -12,6 +12,7 @@ const DEFAULT_POSTS_NUMBER = 3;
 interface IBlogSection {
   title?: string;
   dropdown?: boolean;
+  loadMore?: boolean;
   posts: IBlogPost[];
   amount?: number;
   variation: string;
