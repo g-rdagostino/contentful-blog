@@ -4,13 +4,12 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 
 import { createClient } from 'contentful';
-import { formatDate } from '../../utils/helpers';
+import { formatBody, formatDate } from '../../utils/helpers';
 
 import { IBlogPost } from '../../components/BlogPost';
 import classes from '../../styles/Post.module.css';
 
 const Post: NextPage = ({ post }: any) => {
-  console.log(post);
   return (
     <div className={classes.container}>
       <Head>
@@ -46,6 +45,10 @@ const Post: NextPage = ({ post }: any) => {
             </div>
           </div>
         </div>
+        <div
+          className={classes['blog-post__body']}
+          dangerouslySetInnerHTML={{ __html: post.body }}
+        />
       </main>
     </div>
   );
@@ -80,8 +83,6 @@ export const getStaticProps: GetStaticProps = async ({ params }: any) => {
     'fields.slug': params.slug,
   });
 
-  console.log(entries.items[0]);
-
   return {
     props: { post: transformContentfulPost(entries.items[0]) },
   };
@@ -95,12 +96,13 @@ export const getStaticProps: GetStaticProps = async ({ params }: any) => {
 const transformContentfulPost = (item: any): IBlogPost => {
   return {
     id: item.sys.id,
-    title: item.fields.title,
-    slug: item.fields.slug,
-    category: item.fields.category,
-    featuredImageUrl: `https:${item.fields.featuredImage?.fields.file.url}` || '',
-    datePublished: formatDate(item.sys.createdAt),
     author: item.fields.author,
+    body: formatBody(item.fields.body) || '',
+    category: item.fields.category,
+    datePublished: formatDate(item.sys.createdAt),
+    featuredImageUrl: `https:${item.fields.featuredImage?.fields.file.url}` || '',
+    slug: item.fields.slug,
+    title: item.fields.title,
   };
 };
 

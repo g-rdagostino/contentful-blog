@@ -5,21 +5,22 @@ import classes from './BlogPost.module.css';
 
 export interface IBlogPost {
   id: string;
-  title: string;
-  slug: string;
-  category: string;
-  featuredImageUrl: string;
-  datePublished: string;
   author: string;
+  body: string;
+  category: string;
+  datePublished: string;
+  featuredImageUrl: string;
+  slug: string;
+  title: string;
 }
 
 const BlogPost = ({
-  title,
-  slug,
-  category,
-  featuredImageUrl,
-  datePublished,
   author,
+  category,
+  datePublished,
+  featuredImageUrl,
+  slug,
+  title,
 }: IBlogPost) => {
   return (
     <Link href={`/posts/${slug}`}>
