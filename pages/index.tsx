@@ -41,7 +41,6 @@ const Home: NextPage = ({ posts }: any) => {
         <BlogSection
           title="Browse All"
           posts={posts}
-          amount={6}
           variation="grid"
           dropdown={true}
           loadOnDemand={true}
