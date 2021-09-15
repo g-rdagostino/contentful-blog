@@ -1,13 +1,13 @@
 import { useState, ChangeEvent, ChangeEventHandler } from 'react';
 
+export const categoryList = ['all', 'partners', 'developers', 'strategy', 'product'];
+
 interface IBlogSectionHeaderDropdown {
   onCategorySelect: any;
 }
 
 const BlogSectionHeaderDropdown = ({ onCategorySelect }: IBlogSectionHeaderDropdown) => {
-  const [selectedCategory, setSelectedCategory] = useState('all');
-
-  const categoryList = ['All', 'Partners', 'Developers', 'Strategy', 'Product'];
+  const [selectedCategory, setSelectedCategory] = useState(categoryList[0]);
 
   const handleChange: ChangeEventHandler<HTMLSelectElement> = (
     event: ChangeEvent<HTMLSelectElement>
@@ -19,10 +19,10 @@ const BlogSectionHeaderDropdown = ({ onCategorySelect }: IBlogSectionHeaderDropd
   return (
     <select value={selectedCategory} onChange={handleChange}>
       {categoryList.map((category) => {
-        const categoryValue = category.replace(/\s/g, '-').toLowerCase();
+        const categoryLabel = `${category.charAt(0).toUpperCase()}${category.slice(1)}`;
         return (
-          <option key={categoryValue} value={categoryValue}>
-            {category}
+          <option key={category} value={category}>
+            {categoryLabel}
           </option>
         );
       })}

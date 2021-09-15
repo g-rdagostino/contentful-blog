@@ -1,29 +1,6 @@
 import { BLOCKS, MARKS } from '@contentful/rich-text-types';
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 
-export const formatDate = (dateString: string) => {
-  const date = new Date(dateString);
-  const months = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-  ];
-  const month = months[date.getMonth()];
-  const dayOfTheMonth = date.getDate();
-  const year = date.getFullYear();
-
-  return `${month} ${dayOfTheMonth}, ${year}`;
-};
-
 export const formatBody = (body: any) => {
   const options: any = {
     renderMark: {
@@ -49,4 +26,31 @@ export const formatBody = (body: any) => {
   };
 
   return documentToHtmlString(body, options);
+};
+
+export const formatCategory = (category: string): string => {
+  return category.replace(/\s/g, '-').toLowerCase();
+};
+
+export const formatDate = (dateString: string) => {
+  const date = new Date(dateString);
+  const months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
+  const month = months[date.getMonth()];
+  const dayOfTheMonth = date.getDate();
+  const year = date.getFullYear();
+
+  return `${month} ${dayOfTheMonth}, ${year}`;
 };
