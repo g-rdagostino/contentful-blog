@@ -1,4 +1,5 @@
-import { useState, ChangeEvent, ChangeEventHandler } from 'react';
+import { useState, ChangeEvent, ChangeEventHandler, useEffect } from 'react';
+import fetchCategories from '../utils/contentful-categories';
 
 export const categoryList = ['all', 'partners', 'developers', 'strategy', 'product'];
 
@@ -7,7 +8,9 @@ interface IBlogSectionHeaderDropdown {
 }
 
 const BlogSectionHeaderDropdown = ({ onCategorySelect }: IBlogSectionHeaderDropdown) => {
-  const [selectedCategory, setSelectedCategory] = useState(categoryList[0]);
+  const [selectedCategory, setSelectedCategory] = useState('all');
+
+  const categoryList = fetchCategories();
 
   const handleChange: ChangeEventHandler<HTMLSelectElement> = (
     event: ChangeEvent<HTMLSelectElement>

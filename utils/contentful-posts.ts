@@ -11,7 +11,7 @@ const client = createClient({
   accessToken: accessToken || '',
 });
 
-const fetchEntries = async (): Promise<object[]> => {
+const fetchPosts = async (): Promise<object[]> => {
   const entries = await client.getEntries({ content_type: 'blogPost' });
   if (!entries.items) console.error(`Error getting entries.`);
   return transformContentfulPosts(entries.items);
@@ -39,4 +39,4 @@ const transformContentfulPosts = (items: object[] = []): IBlogPost[] => {
   return posts;
 };
 
-export default fetchEntries;
+export default fetchPosts;

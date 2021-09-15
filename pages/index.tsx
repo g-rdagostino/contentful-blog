@@ -1,7 +1,7 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 
-import fetchEntries from '../utils/contentful-posts';
+import fetchPosts from '../utils/contentful-posts';
 
 import BlogSection from '../components/BlogSection';
 import classes from '../styles/Home.module.css';
@@ -51,7 +51,7 @@ const Home: NextPage = ({ posts }: any) => {
 };
 
 export async function getStaticProps() {
-  const posts = await fetchEntries();
+  const posts = await fetchPosts();
 
   return {
     props: {
