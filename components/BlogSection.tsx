@@ -4,9 +4,9 @@ import BlogSectionHeader from './BlogSectionHeader';
 import BlogSectionContent from './BlogSectionContent';
 import classes from './BlogSection.module.css';
 import { IBlogPost } from './BlogPost';
-import { categoryList } from './BlogSectionHeaderDropdown'
+import { categoryList } from './BlogSectionHeaderDropdown';
 
-const Category_All = categoryList[0]
+const Category_All = categoryList[0];
 
 interface IBlogSection {
   title?: string;
@@ -22,24 +22,27 @@ const BlogSection = ({ title, dropdown, posts, loadOnDemand, amount, variation }
   const [category, setCategory] = useState('');
 
   const handleCategorySelect = (category: string) => {
-    setCategory(category)
+    setCategory(category);
   };
 
   const onloadOnDemandClicked = () => {
-    const newPosts = postList.concat(posts) // fetch simulated
-    
-    const newFilteredPosts = newPosts.filter(p => {
-      if(category === Category_All) return true
-      return p.category === category
-    })
+    const newPosts = postList.concat(posts); // fetch simulated
 
-    setPostList(newFilteredPosts)
+    const newFilteredPosts = newPosts.filter((p) => {
+      if (category === Category_All) return true;
+      return p.category === category;
+    });
+
+    setPostList(newFilteredPosts);
   };
 
-  const filteredPosts = () :IBlogPost[] => category === '' ? posts : postList.filter(p => {
-    if(category === Category_All) return true
-    return p.category === category
-  });
+  const filteredPosts = (): IBlogPost[] =>
+    category === ''
+      ? posts
+      : postList.filter((p) => {
+          if (category === Category_All) return true;
+          return p.category === category;
+        });
 
   return (
     <div className={`${classes['blog-section']} ${classes[`blog-section--${variation}`]}`}>
