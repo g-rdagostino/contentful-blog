@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 import BlogSectionHeader from './BlogSectionHeader';
 import BlogSectionContent from './BlogSectionContent';
@@ -6,47 +6,43 @@ import classes from './BlogSection.module.css';
 import { IBlogPost } from './BlogPost';
 import { categoryList } from './BlogSectionHeaderDropdown';
 
-const DEFAULT_CATEGORY = categoryList[0];
-const DEFAULT_POSTS_NUMBER = 3;
+const Category_All = categoryList[0];
 
 interface IBlogSection {
   title?: string;
   dropdown?: boolean;
-  posts: IBlogPost[];
-  amount?: number;
-  variation: string;
   loadOnDemand?: boolean;
+  posts: IBlogPost[];
+  amount: number;
+  variation: string;
 }
 
-const BlogSection = ({
-  title,
-  dropdown,
-  posts,
-  amount,
-  variation,
-  loadOnDemand = false,
-}: IBlogSection) => {
-  const [displayedPosts, setDisplayedPosts] = useState(DEFAULT_POSTS_NUMBER);
-  const [category, setCategory] = useState<string>(DEFAULT_CATEGORY);
+const BlogSection = ({ title, dropdown, posts, loadOnDemand, amount, variation }: IBlogSection) => {
+  const [postList, setPostList] = useState<IBlogPost[]>(posts);
+  const [category, setCategory] = useState('');
 
   const handleCategorySelect = (category: string) => {
     setCategory(category);
-    setDisplayedPosts(DEFAULT_POSTS_NUMBER);
   };
 
-  const handleLoadMore = () => {
-    setDisplayedPosts((prevState) => prevState + DEFAULT_POSTS_NUMBER);
+  const onloadOnDemandClicked = () => {
+    const newPosts = postList.concat(posts); // fetch simulated
+
+    const newFilteredPosts = newPosts.filter((p) => {
+      if (category === Category_All) return true;
+      return p.category === category;
+    });
+
+    setPostList(newFilteredPosts);
   };
 
-  const filteredPostList = (): IBlogPost[] =>
-    category === DEFAULT_CATEGORY
-      ? posts.slice(0, displayedPosts)
-      : posts
-          .filter((post) => {
-            if (category === DEFAULT_CATEGORY) return true;
-            return post.category === category;
-          })
-          .slice(0, displayedPosts);
+  const filteredPosts = (): IBlogPost[] =>
+    category === ''
+      ? posts
+      : postList.filter((p) => {
+          if (category === Category_All) return true;
+          return p.category === category;
+        });
 
   return (
     <div className={`${classes['blog-section']} ${classes[`blog-section--${variation}`]}`}>
@@ -55,17 +51,12 @@ const BlogSection = ({
         dropdown={dropdown}
         onCategorySelect={handleCategorySelect}
       />
-      <BlogSectionContent posts={filteredPostList()} amount={amount} category={category} />
-
-      {loadOnDemand && displayedPosts < posts.length && (
-        <button
-          className={classes['blog-section__load-more-button']}
-          type="button"
-          onClick={handleLoadMore}
-        >
-          Load more
+      <BlogSectionContent posts={filteredPosts()} amount={amount} category={category} />
+      {loadOnDemand ? (
+        <button onClick={onloadOnDemandClicked} className="load-more">
+          Load More
         </button>
-      )}
+      ) : null}
     </div>
   );
 };
