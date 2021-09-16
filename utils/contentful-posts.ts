@@ -3,8 +3,8 @@ import { createClient } from 'contentful';
 import { IBlogPost } from '../components/BlogPost';
 import { formatBody, formatCategory, formatDate } from './helpers';
 
-const spaceId = process.env.CONTENTFUL_SPACE_ID;
-const accessToken = process.env.CONTENTFUL_ACCESS_KEY;
+const spaceId = process.env.NEXT_PUBLIC_CONTENTFUL_ACCESS_KEY;
+const accessToken = process.env.NEXT_PUBLIC_CONTENTFUL_ACCESS_KEY;
 
 const client = createClient({
   space: spaceId || '',
