@@ -4,10 +4,7 @@ import BlogSectionHeader from './BlogSectionHeader';
 import BlogSectionContent from './BlogSectionContent';
 import classes from './BlogSection.module.css';
 import { IBlogPost } from './BlogPost';
-import { categoryList } from './BlogSectionHeaderDropdown';
-
-const DEFAULT_CATEGORY = categoryList[0];
-const DEFAULT_POSTS_NUMBER = 3;
+import fetchPosts from '../utils/contentful-posts';
 
 interface IBlogSection {
   title?: string;
@@ -26,27 +23,24 @@ const BlogSection = ({
   variation,
   loadOnDemand = false,
 }: IBlogSection) => {
-  const [displayedPosts, setDisplayedPosts] = useState(DEFAULT_POSTS_NUMBER);
-  const [category, setCategory] = useState<string>(DEFAULT_CATEGORY);
+  const [postList, setPostList] = useState<IBlogPost[]>([]);
+  const [category, setCategory] = useState<string>('');
+
+  useEffect(() => {
+    fetchPosts(category).then((posts: any) => setPostList(posts));
+  }, []);
+
+  useEffect(() => {
+    fetchPosts(category).then((posts: any) => setPostList(posts));
+  }, [category]);
 
   const handleCategorySelect = (category: string) => {
     setCategory(category);
-    setDisplayedPosts(DEFAULT_POSTS_NUMBER);
   };
 
   const handleLoadMore = () => {
     setDisplayedPosts((prevState) => prevState + DEFAULT_POSTS_NUMBER);
   };
-
-  const filteredPostList = (): IBlogPost[] =>
-    category === DEFAULT_CATEGORY
-      ? posts.slice(0, displayedPosts)
-      : posts
-          .filter((post) => {
-            if (category === DEFAULT_CATEGORY) return true;
-            return post.category === category;
-          })
-          .slice(0, displayedPosts);
 
   return (
     <div className={`${classes['blog-section']} ${classes[`blog-section--${variation}`]}`}>
