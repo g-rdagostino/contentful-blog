@@ -1,10 +1,9 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 
-import fetchPosts from '../utils/contentful-posts';
-
 import BlogSection from '../components/BlogSection';
 import classes from '../styles/Home.module.css';
+import fetchPosts from '../utils/contentful-posts';
 
 const Home: NextPage = ({ posts }: any) => {
   return (
@@ -30,17 +29,11 @@ const Home: NextPage = ({ posts }: any) => {
           Get started by editing <code className={classes.code}>pages/index.js</code>
         </p>
 
-        <BlogSection posts={posts} amount={4} variation="featured" />
-        <BlogSection
-          title="Most Popular"
-          posts={posts}
-          amount={6}
-          variation="grid"
-          loadOnDemand={true}
-        />
+        <BlogSection limit={4} variation="featured" />
+        <BlogSection title="Most Popular" limit={6} variation="grid" />
         <BlogSection
           title="Browse All"
-          posts={posts}
+          limit={3}
           variation="grid"
           dropdown={true}
           loadOnDemand={true}

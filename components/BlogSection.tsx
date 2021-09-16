@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import BlogSectionHeader from './BlogSectionHeader';
 import BlogSectionContent from './BlogSectionContent';
@@ -9,22 +9,17 @@ import fetchPosts from '../utils/contentful-posts';
 interface IBlogSection {
   title?: string;
   dropdown?: boolean;
-  posts: IBlogPost[];
-  amount?: number;
-  variation: string;
   loadOnDemand?: boolean;
+  limit: number;
+  variation: string;
 }
 
-const BlogSection = ({
-  title,
-  dropdown,
-  posts,
-  amount,
-  variation,
-  loadOnDemand = false,
-}: IBlogSection) => {
+const BlogSection = ({ title, limit, variation, dropdown, loadOnDemand = false }: IBlogSection) => {
   const [postList, setPostList] = useState<IBlogPost[]>([]);
   const [category, setCategory] = useState<string>('');
+  const [newLimit, setNewLimit] = useState<number>(limit);
+
+  const LIMIT_INCREMENT = 3;
 
   useEffect(() => {
     fetchPosts(category).then((posts: any) => setPostList(posts));
@@ -32,6 +27,7 @@ const BlogSection = ({
 
   useEffect(() => {
     fetchPosts(category).then((posts: any) => setPostList(posts));
+    setNewLimit(limit);
   }, [category]);
 
   const handleCategorySelect = (category: string) => {
@@ -39,7 +35,7 @@ const BlogSection = ({
   };
 
   const handleLoadMore = () => {
-    setDisplayedPosts((prevState) => prevState + DEFAULT_POSTS_NUMBER);
+    setNewLimit((prevValue) => prevValue + LIMIT_INCREMENT);
   };
 
   return (
@@ -49,15 +45,14 @@ const BlogSection = ({
         dropdown={dropdown}
         onCategorySelect={handleCategorySelect}
       />
-      <BlogSectionContent posts={filteredPostList()} amount={amount} category={category} />
-
-      {loadOnDemand && displayedPosts < posts.length && (
+      <BlogSectionContent posts={postList} limit={newLimit} category={category} />
+      {loadOnDemand && postList.length > newLimit && (
         <button
           className={classes['blog-section__load-more-button']}
           type="button"
           onClick={handleLoadMore}
         >
-          Load more
+          Load More
         </button>
       )}
     </div>

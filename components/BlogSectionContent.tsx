@@ -3,15 +3,15 @@ import classes from './BlogSectionContent.module.css';
 
 interface IBlogSectionContent {
   posts: IBlogPost[];
-  amount?: number;
+  limit?: number;
   category: string | null;
 }
 
-const BlogSectionContent = ({ posts, amount }: IBlogSectionContent) => {
+const BlogSectionContent = ({ posts, limit }: IBlogSectionContent) => {
   return (
     <div className={classes['blog-section__content']}>
       {posts.map((post: any, index) => {
-        if (amount && index >= amount) {
+        if (limit && index >= limit) {
           return;
         }
         return (
