@@ -16,7 +16,7 @@ const BlogSectionContent = ({ posts, limit }: IBlogSectionContent) => {
         }
         return (
           <BlogPost
-            key={post.id}
+            key={index}
             id={post.id}
             author={post.author}
             body={post.body}
