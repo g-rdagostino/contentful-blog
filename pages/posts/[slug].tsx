@@ -1,5 +1,6 @@
 import type { NextPage } from 'next';
 import Image from 'next/image';
+import Link from 'next/link';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 
@@ -24,8 +25,14 @@ const Post: NextPage = ({ post }: any) => {
         />
       </Head>
 
+      <header>
+        <h1 className={classes.title}>
+          Welcome to the <Link href="/">Contenful Blog</Link>
+        </h1>
+      </header>
+
       <main className={classes.main}>
-        <h1 className={classes.title}>{post.title}</h1>
+        <h1 className={classes['blog-post__title']}>{post.title}</h1>
         <div className={classes['blog-post__media-meta-wrapper']}>
           <div className={classes['blog-post__media']}>
             <Image src={post.featuredImageUrl} alt="" width="748" height="500" />
