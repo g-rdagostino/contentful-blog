@@ -48,7 +48,7 @@ const Post: NextPage = ({ post }: any) => {
             </div>
             <div className={classes['blog-post__meta-block']}>
               <p className={classes['blog-post__meta-title']}>Category</p>
-              <p className={classes['blog-post__meta-content']}>{post.category}</p>
+              <p className={classes['blog-post__meta-content']}>{post.categoryName}</p>
             </div>
           </div>
         </div>
