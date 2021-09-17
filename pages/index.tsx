@@ -3,9 +3,8 @@ import Head from 'next/head';
 
 import BlogSection from '../components/BlogSection';
 import classes from '../styles/Home.module.css';
-import fetchPosts from '../utils/contentful-posts';
 
-const Home: NextPage = ({ posts }: any) => {
+const Home: NextPage = () => {
   return (
     <div className={classes.container}>
       <Head>
@@ -42,15 +41,5 @@ const Home: NextPage = ({ posts }: any) => {
     </div>
   );
 };
-
-export async function getStaticProps() {
-  const posts = await fetchPosts();
-
-  return {
-    props: {
-      posts,
-    },
-  };
-}
 
 export default Home;
