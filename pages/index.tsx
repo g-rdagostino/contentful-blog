@@ -1,12 +1,11 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-
-import fetchEntries from '../utils/contentful-posts';
+import Link from 'next/link';
 
 import BlogSection from '../components/BlogSection';
 import classes from '../styles/Home.module.css';
 
-const Home: NextPage = ({ posts }: any) => {
+const Home: NextPage = () => {
   return (
     <div className={classes.container}>
       <Head>
@@ -21,21 +20,18 @@ const Home: NextPage = ({ posts }: any) => {
         />
       </Head>
 
-      <main className={classes.main}>
+      <header>
         <h1 className={classes.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
+          Welcome to the <Link href="/">Contenful Blog</Link>
         </h1>
+      </header>
 
-        <p className={classes.description}>
-          Get started by editing <code className={classes.code}>pages/index.js</code>
-        </p>
-
-        <BlogSection posts={posts} amount={4} variation="featured" />
-        <BlogSection title="Most Popular" posts={posts} amount={6} variation="grid" />
+      <main className={classes.main}>
+        <BlogSection limit={4} variation="featured" />
+        <BlogSection title="Most Popular" limit={6} variation="grid" />
         <BlogSection
           title="Browse All"
-          posts={posts}
-          amount={100}
+          limit={3}
           variation="grid"
           dropdown={true}
           loadOnDemand={true}
@@ -44,15 +40,5 @@ const Home: NextPage = ({ posts }: any) => {
     </div>
   );
 };
-
-export async function getStaticProps() {
-  const posts = await fetchEntries();
-
-  return {
-    props: {
-      posts,
-    },
-  };
-}
 
 export default Home;

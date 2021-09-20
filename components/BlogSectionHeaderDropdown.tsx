@@ -1,13 +1,23 @@
-import { useState, ChangeEvent, ChangeEventHandler } from 'react';
-
-export const categoryList = ['all', 'partners', 'developers', 'strategy', 'product'];
+import { useState, useEffect, ChangeEvent, ChangeEventHandler } from 'react';
+import fetchCategories from '../utils/contentful-categories';
 
 interface IBlogSectionHeaderDropdown {
   onCategorySelect: any;
 }
 
+interface ICategory {
+  id: string;
+  name: string;
+  slug: string;
+}
+
 const BlogSectionHeaderDropdown = ({ onCategorySelect }: IBlogSectionHeaderDropdown) => {
-  const [selectedCategory, setSelectedCategory] = useState(categoryList[0]);
+  const [categoryList, setCategoryList] = useState<ICategory[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState('all');
+
+  useEffect(() => {
+    fetchCategories().then((categories: ICategory[]) => setCategoryList(categories));
+  }, []);
 
   const handleChange: ChangeEventHandler<HTMLSelectElement> = (
     event: ChangeEvent<HTMLSelectElement>
@@ -18,14 +28,15 @@ const BlogSectionHeaderDropdown = ({ onCategorySelect }: IBlogSectionHeaderDropd
 
   return (
     <select value={selectedCategory} onChange={handleChange}>
-      {categoryList.map((category) => {
-        const categoryLabel = `${category.charAt(0).toUpperCase()}${category.slice(1)}`;
-        return (
-          <option key={category} value={category}>
-            {categoryLabel}
-          </option>
-        );
-      })}
+      <option value="all">All</option>
+      {categoryList.length > 0 &&
+        categoryList.map((category: ICategory) => {
+          return (
+            <option key={category.slug} value={category.slug}>
+              {category.name}
+            </option>
+          );
+        })}
     </select>
   );
 };

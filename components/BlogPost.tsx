@@ -7,7 +7,8 @@ export interface IBlogPost {
   id: string;
   author: string;
   body: string;
-  category: string;
+  categoryName: string;
+  categorySlug: string;
   datePublished: string;
   featuredImageUrl: string;
   slug: string;
@@ -16,7 +17,8 @@ export interface IBlogPost {
 
 const BlogPost = ({
   author,
-  category,
+  categoryName,
+  categorySlug,
   datePublished,
   featuredImageUrl,
   slug,
@@ -29,7 +31,7 @@ const BlogPost = ({
           <Image src={featuredImageUrl} alt="" width="748" height="500" />
         </div>
         <div className={classes['blog-post__content']}>
-          <span className={classes['blog-post__category']}>{category}</span>
+          <span className={classes['blog-post__category']}>{categoryName}</span>
           <h3 className={classes['blog-post__title']}>{title}</h3>
           <div className={classes['blog-post__meta']}>
             <time className={classes['blog-post__date']}>{datePublished}</time>

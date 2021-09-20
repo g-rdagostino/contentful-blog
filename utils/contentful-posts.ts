@@ -1,19 +1,20 @@
-import { createClient } from 'contentful';
+import client from './contentful-create-client';
 
 import { IBlogPost } from '../components/BlogPost';
-import { formatBody, formatCategory, formatDate } from './helpers';
+import { formatBody, formatDate } from './helpers';
 
-const spaceId = process.env.CONTENTFUL_SPACE_ID;
-const accessToken = process.env.CONTENTFUL_ACCESS_KEY;
-
-const client = createClient({
-  space: spaceId || '',
-  accessToken: accessToken || '',
-});
-
-const fetchEntries = async (): Promise<object[]> => {
-  const entries = await client.getEntries({ content_type: 'blogPost' });
+const fetchPosts = async (category: string = ''): Promise<object[]> => {
+  const entries = await client.getEntries({
+    content_type: 'blogPost',
+    order: '-sys.createdAt',
+  });
   if (!entries.items) console.error(`Error getting entries.`);
+  if (category && category !== 'all') {
+    const filteredEntries = entries.items.filter((entry: any) => {
+      return entry.fields.category.fields.slug === category;
+    });
+    return transformContentfulPosts(filteredEntries);
+  }
   return transformContentfulPosts(entries.items);
 };
 
@@ -28,7 +29,8 @@ const transformContentfulPosts = (items: object[] = []): IBlogPost[] => {
       id: item.sys.id,
       author: item.fields.author,
       body: formatBody(item.fields.body) || '',
-      category: formatCategory(item.fields.category),
+      categoryName: item.fields.category?.fields.name || '',
+      categorySlug: item.fields.category?.fields.slug || '',
       datePublished: formatDate(item.sys.createdAt),
       featuredImageUrl: `https:${item.fields.featuredImage?.fields.file.url}` || '',
       slug: item.fields.slug,
@@ -39,4 +41,4 @@ const transformContentfulPosts = (items: object[] = []): IBlogPost[] => {
   return posts;
 };
 
-export default fetchEntries;
+export default fetchPosts;

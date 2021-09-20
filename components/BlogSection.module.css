@@ -31,58 +31,46 @@
 
 .blog-section--featured
   [class*="blog-section__content"]
-  > [class*="blog-post"]:nth-child(2),
-.blog-section--featured
-  [class*="blog-section__content"]
-  > [class*="blog-post"]:nth-child(3),
-.blog-section--featured
-  [class*="blog-section__content"]
-  > [class*="blog-post"]:nth-child(4) {
+  > [class*="blog-post"]:not(:first-child) {
   display: flex;
+  gap: 1.25rem;
 }
 
 .blog-section--featured
   [class*="blog-section__content"]
-  > [class*="blog-post"]:nth-child(2)
-  > *,
-.blog-section--featured
-  [class*="blog-section__content"]
-  > [class*="blog-post"]:nth-child(3)
-  > *,
-.blog-section--featured
-  [class*="blog-section__content"]
-  > [class*="blog-post"]:nth-child(4)
+  > [class*="blog-post"]:not(:first-child)
   > * {
   flex: 0 0 50%;
 }
 
 .blog-section--featured
   [class*="blog-section__content"]
-  > [class*="blog-post"]:nth-child(2)
-  > [class*="blog-post__media"],
-.blog-section--featured
-  [class*="blog-section__content"]
-  > [class*="blog-post"]:nth-child(3)
-  > [class*="blog-post__media"],
-.blog-section--featured
-  [class*="blog-section__content"]
-  > [class*="blog-post"]:nth-child(4)
-  > [class*="blog-post__media"] {
-  flex: 0 0 50%;
-  padding-right: 1.25rem;
+  > [class*="blog-post"]:not(:first-child)
+  [class*="blog-post__media"]
+  > * {
+  height: 100%;
 }
 
 .blog-section--featured
   [class*="blog-section__content"]
-  > [class*="blog-post"]:nth-child(2)
-  > [class*="blog-post__content"],
+  > [class*="blog-post"]:not(:first-child)
+  [class*="blog-post__media"]
+  > *
+  > img {
+  width: auto !important;
+  max-width: none !important;
+}
+
 .blog-section--featured
   [class*="blog-section__content"]
-  > [class*="blog-post"]:nth-child(3)
-  > [class*="blog-post__content"],
+  > [class*="blog-post"]:not(:first-child)
+  > [class*="blog-post__media"] {
+  flex: 0 0 50%;
+}
+
 .blog-section--featured
   [class*="blog-section__content"]
-  > [class*="blog-post"]:nth-child(4)
+  > [class*="blog-post"]:not(:first-child)
   > [class*="blog-post__content"] {
   flex: 1 0 50%;
   padding: 0;

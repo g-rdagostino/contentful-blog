@@ -1,5 +1,6 @@
 import type { NextPage } from 'next';
 import Image from 'next/image';
+import Link from 'next/link';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 
@@ -8,6 +9,7 @@ import { formatBody, formatDate } from '../../utils/helpers';
 
 import { IBlogPost } from '../../components/BlogPost';
 import classes from '../../styles/Post.module.css';
+import { fetchPaths, fetchPost } from '../../utils/contentful-post';
 
 const Post: NextPage = ({ post }: any) => {
   return (
@@ -24,8 +26,14 @@ const Post: NextPage = ({ post }: any) => {
         />
       </Head>
 
+      <header>
+        <h1 className={classes.title}>
+          Welcome to the <Link href="/">Contenful Blog</Link>
+        </h1>
+      </header>
+
       <main className={classes.main}>
-        <h1 className={classes.title}>{post.title}</h1>
+        <h1 className={classes['blog-post__title']}>{post.title}</h1>
         <div className={classes['blog-post__media-meta-wrapper']}>
           <div className={classes['blog-post__media']}>
             <Image src={post.featuredImageUrl} alt="" width="748" height="500" />
@@ -41,7 +49,7 @@ const Post: NextPage = ({ post }: any) => {
             </div>
             <div className={classes['blog-post__meta-block']}>
               <p className={classes['blog-post__meta-title']}>Category</p>
-              <p className={classes['blog-post__meta-content']}>{post.category}</p>
+              <p className={classes['blog-post__meta-content']}>{post.categoryName}</p>
             </div>
           </div>
         </div>
@@ -54,22 +62,8 @@ const Post: NextPage = ({ post }: any) => {
   );
 };
 
-const spaceId = process.env.CONTENTFUL_SPACE_ID;
-const accessToken = process.env.CONTENTFUL_ACCESS_KEY;
-
-const client = createClient({
-  space: spaceId || '',
-  accessToken: accessToken || '',
-});
-
 export const getStaticPaths: GetStaticPaths = async () => {
-  const response = await client.getEntries({ content_type: 'blogPost' });
-
-  const paths = response.items.map((item: any) => {
-    return {
-      params: { slug: item.fields.slug },
-    };
-  });
+  const paths = await fetchPaths();
 
   return {
     paths,
@@ -78,31 +72,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }: any) => {
-  const entries = await client.getEntries({
-    content_type: 'blogPost',
-    'fields.slug': params.slug,
-  });
+  const entry = await fetchPost(params);
 
   return {
-    props: { post: transformContentfulPost(entries.items[0]) },
-  };
-};
-
-/**
- * There are two ways we might be able to solve the “item: any” issue:
- * -1- Use an Interface to identify the fetched content.
- * -2- Ignore the content received.
- */
-const transformContentfulPost = (item: any): IBlogPost => {
-  return {
-    id: item.sys.id,
-    author: item.fields.author,
-    body: formatBody(item.fields.body) || '',
-    category: item.fields.category,
-    datePublished: formatDate(item.sys.createdAt),
-    featuredImageUrl: `https:${item.fields.featuredImage?.fields.file.url}` || '',
-    slug: item.fields.slug,
-    title: item.fields.title,
+    props: { post: entry },
   };
 };
 
