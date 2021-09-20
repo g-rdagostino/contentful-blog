@@ -1,15 +1,7 @@
-import { createClient } from 'contentful';
+import client from './contentful-create-client';
 
 import { IBlogPost } from '../components/BlogPost';
 import { formatBody, formatDate } from './helpers';
-
-const spaceId = process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID;
-const accessToken = process.env.NEXT_PUBLIC_CONTENTFUL_ACCESS_KEY;
-
-const client = createClient({
-  space: spaceId || '',
-  accessToken: accessToken || '',
-});
 
 const fetchPosts = async (category: string = ''): Promise<object[]> => {
   const entries = await client.getEntries({

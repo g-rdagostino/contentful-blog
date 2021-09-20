@@ -1,18 +1,10 @@
-import { createClient } from 'contentful';
+import client from './contentful-create-client';
 
 interface IBlogCategory {
   id: string;
   name: string;
   slug: string;
 }
-
-const spaceId = process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID;
-const accessToken = process.env.NEXT_PUBLIC_CONTENTFUL_ACCESS_KEY;
-
-const client = createClient({
-  space: spaceId || '',
-  accessToken: accessToken || '',
-});
 
 const fetchCategories = async (): Promise<IBlogCategory[]> => {
   const entries = await client.getEntries({ content_type: 'blogCategory' });
